@@ -1,12 +1,6 @@
-class App {
-    private message: string = "Hello World";
+import { bootstrapMicroframework } from "microframework";
+import TypeORMLoader from "./loaders/TypeORMLoader";
 
-    constructor() {}
-
-    sayHello(): void {
-        console.log(this.message);
-    }
-}
-
-const app = new App();
-app.sayHello();
+bootstrapMicroframework([TypeORMLoader])
+    .then(() => console.log("Application is up and running."))
+    .catch((error) => console.log("Application is crashed: " + error));
