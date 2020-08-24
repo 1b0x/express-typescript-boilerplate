@@ -2,11 +2,11 @@
   "name": "basic-users-system",
   "version": "1.0.0",
   "description": "Basic User System",
-  "main": "dist/App.js",
+  "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "tsc -w",
-    "dev": "nodemon dist/App.js"
+    "dev": "nodemon dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -23,16 +23,21 @@
     "@types/express": "^4.17.7",
     "@types/node": "^14.6.0",
     "nodemon": "^2.0.4",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.7",
+    "@types/validator": "^13.1.0"
   },
   "dependencies": {
-    "@types/cors": "^2.8.7",
     "body-parser": "^1.19.0",
+    "class-transformer": "^0.3.1",
+    "class-validator": "^0.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
+    "routing-controllers": "^0.9.0-alpha.6",
     "typeorm": "^0.2.25"
   }
 }
