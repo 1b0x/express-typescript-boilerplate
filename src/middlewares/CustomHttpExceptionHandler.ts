@@ -5,7 +5,7 @@ import NotFoundException from "../exceptions/NotFoundException";
 
 @Middleware({ type: "after" })
 export class CustomHttpExceptionHandler implements ExpressMiddlewareInterface {
-    public use(req: Request, res: Response, next?: NextFunction): void {
+    use(req: Request, res: Response, next?: NextFunction): void {
         if (!res.headersSent) {
             const { status, message } = new NotFoundException();
 
@@ -13,8 +13,8 @@ export class CustomHttpExceptionHandler implements ExpressMiddlewareInterface {
             res.send({
                 error: {
                     status,
-                    message,
-                },
+                    message
+                }
             });
         }
 
