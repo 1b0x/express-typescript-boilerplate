@@ -1,11 +1,10 @@
 import "reflect-metadata";
 
+import { Application } from "express";
 import {
     createExpressServer,
     RoutingControllersOptions,
 } from "routing-controllers";
-
-import { Application } from "express";
 
 import bodyParser from "body-parser";
 import cors from "cors";
