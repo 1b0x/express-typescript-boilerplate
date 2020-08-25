@@ -1,15 +1,16 @@
 require("dotenv").config();
 
-import { RoutingControllersSettings } from "./config/index";
 import { Container } from "typedi";
 import { useContainer } from "routing-controllers";
+
+import { RoutingControllersSettings } from "./config/index";
+import { ServerFacade, IServerFacade } from "./ServerFacade";
+import { IApp, App } from "./App";
 
 // Integration with typedi
 useContainer(Container);
 
-// Import our express application
-import { App, IApp } from "./App";
-
-// Create and run our application
 const app: IApp = new App(RoutingControllersSettings);
-app.run();
+
+const serverFacade: IServerFacade = new ServerFacade(app);
+serverFacade.start().then(() => app.listen());

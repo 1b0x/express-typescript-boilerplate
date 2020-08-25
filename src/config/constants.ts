@@ -5,3 +5,7 @@ export const HttpExceptionConstants = {
     NOT_FOUND_CODE: 404,
     NOT_FOUND_MESSAGE: "Not found"
 };
+
+export const DatabaseExceptionConstants = {
+    CONNECTION_ERROR: "Database connection error"
+};

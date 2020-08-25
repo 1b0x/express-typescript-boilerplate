@@ -1,7 +1,6 @@
 import "reflect-metadata";
 
 import { Application } from "express";
-import { createConnection } from "typeorm";
 
 import {
     RoutingControllersOptions,
@@ -12,31 +11,30 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 export interface IApp {
-    run(): void;
+    create(): void;
+    listen(): void;
 }
 
 export class App implements IApp {
     private app: Application;
 
-    constructor(routingControllersOptions?: RoutingControllersOptions) {
-        this.app = createExpressServer(routingControllersOptions);
+    constructor(
+        private routingControllersOptions?: RoutingControllersOptions
+    ) {}
 
-        this.databaseConnection();
+    create(): void {
+        this.app = createExpressServer(this.routingControllersOptions);
         this.initializeMiddlewares();
     }
 
-    run(): void {
-        this.app.listen(process.env.PORT, () =>
+    listen(port?: number): void {
+        this.app.listen(port || process.env.PORT, () =>
             this.handleExpressApplicationListen()
         );
     }
 
     private handleExpressApplicationListen(): void {
         console.log(`App listening on the port ${process.env.PORT}`);
-    }
-
-    private async databaseConnection() {
-        await createConnection();
     }
 
     private initializeMiddlewares(): void {
