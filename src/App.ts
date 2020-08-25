@@ -2,9 +2,10 @@ import "reflect-metadata";
 
 import { Application } from "express";
 import { createConnection } from "typeorm";
+
 import {
-    createExpressServer,
-    RoutingControllersOptions
+    RoutingControllersOptions,
+    createExpressServer
 } from "routing-controllers";
 
 import bodyParser from "body-parser";
