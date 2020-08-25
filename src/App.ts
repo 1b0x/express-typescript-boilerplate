@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { Application } from "express";
 import {
     createExpressServer,
-    RoutingControllersOptions,
+    RoutingControllersOptions
 } from "routing-controllers";
 
 import bodyParser from "body-parser";
