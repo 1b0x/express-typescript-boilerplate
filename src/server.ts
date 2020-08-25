@@ -8,8 +8,8 @@ import { useContainer } from "routing-controllers";
 useContainer(Container);
 
 // Import our express application
-import App from "./App";
+import { App, IApp } from "./App";
 
 // Create and run our application
-const app: App = new App(RoutingControllersSettings);
+const app: IApp = new App(RoutingControllersSettings);
 app.run();

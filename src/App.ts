@@ -11,7 +11,11 @@ import {
 import bodyParser from "body-parser";
 import cors from "cors";
 
-export default class App {
+export interface IApp {
+    run(): void;
+}
+
+export class App implements IApp {
     private app: Application;
 
     constructor(routingControllersOptions?: RoutingControllersOptions) {
