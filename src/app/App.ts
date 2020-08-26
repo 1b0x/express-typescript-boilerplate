@@ -28,13 +28,13 @@ export class App implements IApp {
     }
 
     listen(port?: number): void {
-        this.app.listen(port || process.env.PORT, () =>
+        this.app.listen(port || process.env.APP_PORT, () =>
             this.handleExpressApplicationListen()
         );
     }
 
     private handleExpressApplicationListen(): void {
-        console.log(`App listening on the port ${process.env.PORT}`);
+        console.log(`App listening on the port ${process.env.APP_PORT}`);
     }
 
     private initializeMiddlewares(): void {
