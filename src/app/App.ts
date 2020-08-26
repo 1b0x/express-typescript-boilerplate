@@ -1,5 +1,6 @@
 import "reflect-metadata";
 
+import { ServerMessages } from "../config/constants";
 import { Application } from "express";
 
 import {
@@ -34,7 +35,7 @@ export class App implements IApp {
     }
 
     private handleExpressApplicationListen(): void {
-        console.log(`App listening on the port ${process.env.APP_PORT}`);
+        console.log(`${ServerMessages.SERVER_MESSAGE} ${process.env.APP_PORT}`);
     }
 
     private initializeMiddlewares(): void {

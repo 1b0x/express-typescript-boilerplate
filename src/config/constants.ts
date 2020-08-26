@@ -9,3 +9,7 @@ export const HttpExceptionConstants = {
 export const DatabaseExceptionConstants = {
     CONNECTION_ERROR: "Database connection error"
 };
+
+export const ServerMessages = {
+    SERVER_MESSAGE: "App listening on port:"
+};
