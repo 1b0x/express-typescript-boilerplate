@@ -1,3 +1,5 @@
+import path from "path";
+
 import { ConnectionOptions } from "typeorm";
 
 export const DatabaseConnectionOptions: ConnectionOptions = {
@@ -9,6 +11,6 @@ export const DatabaseConnectionOptions: ConnectionOptions = {
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,
-    entities: ["src/entity/**/*.ts"],
-    migrations: ["src/migration/**/*.ts"]
+    entities: [path.join(__dirname, "../database/entities/**/*.ts")],
+    migrations: [path.join(__dirname, "../database/migrations/**/*.ts")]
 };

@@ -3,7 +3,7 @@ require("dotenv").config();
 import { Container } from "typedi";
 import { useContainer } from "routing-controllers";
 
-import { RoutingControllersSettings } from "./config/index";
+import { RoutingControllersSettings } from "./config/app";
 import { DatabaseConnectionOptions } from "./config/ormconfig";
 
 import { ServerFacade, IServerFacade } from "./ServerFacade";
