@@ -1,3 +1,5 @@
+import { Connection } from "typeorm";
+
 import { IApp } from "./app/App";
 import { DatabaseExceptionConstants } from "./config/constants";
 import { IDatabase } from "./app/DatabaseConnection";
@@ -20,7 +22,7 @@ export class ServerFacade implements IServerFacade {
         this.runApplication();
     }
 
-    private databaseConnection(): Promise<any> {
+    private databaseConnection(): Promise<Connection> {
         return this.dbConnection.createConnection();
     }
 
