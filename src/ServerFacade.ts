@@ -1,16 +1,13 @@
 import { IApp } from "./app/App";
 import { DatabaseExceptionConstants } from "./config/constants";
-import { IDatabaseConnection } from "./app/DatabaseConnection";
+import { IDatabase } from "./app/DatabaseConnection";
 
 export interface IServerFacade {
     start(): Promise<any>;
 }
 
 export class ServerFacade implements IServerFacade {
-    constructor(
-        protected app: IApp,
-        protected dbConnection: IDatabaseConnection
-    ) {}
+    constructor(protected app: IApp, protected dbConnection: IDatabase) {}
 
     async start(): Promise<any> {
         await this.databaseConnection();
@@ -19,8 +16,7 @@ export class ServerFacade implements IServerFacade {
 
     private async databaseConnection(): Promise<any> {
         try {
-            const connection = this.dbConnection.createConnection();
-            await connection.connect();
+            await this.dbConnection.createConnection();
         } catch (error) {
             console.log(DatabaseExceptionConstants.CONNECTION_ERROR, error);
             return error;
