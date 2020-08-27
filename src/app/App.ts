@@ -1,5 +1,3 @@
-import "reflect-metadata";
-
 import { ServerMessages } from "../config/constants";
 import { Application } from "express";
 

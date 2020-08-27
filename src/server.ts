@@ -1,4 +1,6 @@
-require("dotenv").config();
+require("dotenv-safe").config();
+
+import "reflect-metadata";
 
 import { Container } from "typedi";
 import { useContainer } from "routing-controllers";
