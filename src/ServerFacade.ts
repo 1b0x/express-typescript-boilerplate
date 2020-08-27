@@ -10,17 +10,18 @@ export class ServerFacade implements IServerFacade {
     constructor(protected app: IApp, protected dbConnection: IDatabase) {}
 
     async start(): Promise<any> {
-        await this.databaseConnection();
-        this.runApplication();
-    }
-
-    private async databaseConnection(): Promise<any> {
         try {
-            await this.dbConnection.createConnection();
+            await this.databaseConnection();
         } catch (error) {
             console.log(DatabaseExceptionConstants.CONNECTION_ERROR, error);
             return error;
         }
+
+        this.runApplication();
+    }
+
+    private databaseConnection(): Promise<any> {
+        return this.dbConnection.createConnection();
     }
 
     private runApplication(): void {
