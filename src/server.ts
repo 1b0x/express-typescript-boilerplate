@@ -1,4 +1,6 @@
-require("dotenv").config();
+require("dotenv-safe").config();
+
+import "reflect-metadata";
 
 import { Container } from "typedi";
 import { useContainer } from "routing-controllers";
@@ -9,20 +11,14 @@ import { DatabaseConnectionOptions } from "./config/ormconfig";
 import { ServerFacade, IServerFacade } from "./ServerFacade";
 import { IApp, App } from "./app/App";
 
-import {
-    IDatabaseConnection,
-    DatabaseConnection
-} from "./app/DatabaseConnection";
+import { IDatabase, Database } from "./app/DatabaseConnection";
 
 // Integration with typedi
 useContainer(Container);
 
 const app: IApp = new App(RoutingControllersSettings);
+const database: IDatabase = new Database(DatabaseConnectionOptions);
 
-const databaseConnection: IDatabaseConnection = new DatabaseConnection(
-    DatabaseConnectionOptions
-);
-
-const serverFacade: IServerFacade = new ServerFacade(app, databaseConnection);
+const serverFacade: IServerFacade = new ServerFacade(app, database);
 
 serverFacade.start().then(() => app.listen());

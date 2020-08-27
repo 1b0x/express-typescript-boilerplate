@@ -1,17 +1,13 @@
-import { ConnectionManager, Connection, ConnectionOptions } from "typeorm";
+import { createConnection, Connection, ConnectionOptions } from "typeorm";
 
-export interface IDatabaseConnection {
-    createConnection(): Connection;
+export interface IDatabase {
+    createConnection(): Promise<Connection>;
 }
 
-export class DatabaseConnection
-    extends ConnectionManager
-    implements IDatabaseConnection {
-    constructor(private databaseConnectionOptions: ConnectionOptions) {
-        super();
-    }
+export class Database implements IDatabase {
+    constructor(private databaseConnectionOptions: ConnectionOptions) {}
 
-    createConnection(): Connection {
-        return super.create(this.databaseConnectionOptions);
+    createConnection(): Promise<Connection> {
+        return createConnection(this.databaseConnectionOptions);
     }
 }
