@@ -11,6 +11,6 @@ export const DatabaseConnectionOptions: ConnectionOptions = {
     database: process.env.DB_DATABASE,
     synchronize: true,
     logging: true,
-    entities: [path.join(__dirname, "../database/entities/**/*.ts")],
-    migrations: [path.join(__dirname, "../database/migrations/**/*.ts")]
+    entities: [path.join(__dirname, "../database/entities/**/*.js")],
+    migrations: [path.join(__dirname, "../database/migrations/**/*.js")]
 };
