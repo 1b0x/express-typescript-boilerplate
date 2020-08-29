@@ -4,9 +4,8 @@ import { Service } from "typedi";
 export default class UserService {
     getUser(): any {
         return {
-            firstName: "John",
-            lastName: "Doe",
-            age: 15
+            nickname: "John",
+            email: "john@doe.com"
         };
     }
 }
