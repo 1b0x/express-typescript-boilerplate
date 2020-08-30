@@ -1,5 +1,7 @@
 import { JsonController, Post, Body } from "routing-controllers";
 
+import { IUser } from "../interfaces/User";
+
 import User from "../database/entities/User";
 import AuthService from "../services/AuthService";
 
@@ -13,7 +15,7 @@ export class UserController {
     }
 
     @Post("/register")
-    register(@Body() user: User): any {
+    register(@Body() user: User): IUser {
         return this.authService.register(user);
     }
 }
