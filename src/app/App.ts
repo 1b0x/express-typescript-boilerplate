@@ -1,9 +1,9 @@
 import { ServerMessages } from "../config/constants";
-import { Application } from "express";
+import express from "express";
 
 import {
     RoutingControllersOptions,
-    createExpressServer
+    useExpressServer
 } from "routing-controllers";
 
 import bodyParser from "body-parser";
@@ -15,15 +15,16 @@ export interface IApp {
 }
 
 export class App implements IApp {
-    private app: Application;
+    private app: express.Application;
 
     constructor(
         private routingControllersOptions?: RoutingControllersOptions
     ) {}
 
     create(): void {
-        this.app = createExpressServer(this.routingControllersOptions);
+        this.app = express();
         this.initializeMiddlewares();
+        useExpressServer(this.app, this.routingControllersOptions);
     }
 
     listen(port?: number): void {

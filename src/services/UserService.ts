@@ -1,12 +1,13 @@
 import { Service } from "typedi";
+import { IUser } from "src/interfaces/User";
 
 @Service()
 export default class UserService {
-    getUser(): any {
+    getUser(): IUser {
         return {
-            firstName: "John",
-            lastName: "Doe",
-            age: 15
+            id: "12sda23dsavcx34324134xsf",
+            nickname: "John",
+            email: "john@doe.com"
         };
     }
 }
