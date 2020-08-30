@@ -17,7 +17,8 @@ export class UserController {
     }
 
     @Post("/register")
-    register(@Body() user: User): IUser {
+    @UseBefore(DataValidation(User))
+    register(@Body() user: any): IUser {
         return this.authService.register(user);
     }
 }
