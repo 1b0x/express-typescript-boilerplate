@@ -6,7 +6,7 @@ import { ClassType } from "class-transformer/ClassTransformer";
 import { validate } from "class-validator";
 
 import BadRequestException from "../exceptions/BadRequestException";
-import { getClientErrorMessagesFromTypeORMValidationErrors } from "../common/Helpers";
+import { getClientErrorMessagesFromClassValidationErrors } from "../common/Helpers";
 
 export function DataValidation(classType: ClassType<any>) {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +15,7 @@ export function DataValidation(classType: ClassType<any>) {
         const errors = await validate(a);
         if (!errors.length) return next();
 
-        const constraints = getClientErrorMessagesFromTypeORMValidationErrors(
+        const constraints = getClientErrorMessagesFromClassValidationErrors(
             errors
         );
 

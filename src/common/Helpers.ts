@@ -1,6 +1,6 @@
 import { ValidationError } from "class-validator";
 
-export function getClientErrorMessagesFromTypeORMValidationErrors(
+export function getClientErrorMessagesFromClassValidationErrors(
     errors: ValidationError[]
 ) {
     if (!errors || !errors.length) {
