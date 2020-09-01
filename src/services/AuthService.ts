@@ -1,10 +1,16 @@
 import { Service } from "typedi";
+import { InjectRepository } from "typeorm-typedi-extensions";
 
 import User from "../database/entities/User";
-import { IUser } from "src/interfaces/User";
+import UserReposityry from "../repositories/UserRepository";
+import BadRequestException from "../exceptions/BadRequestException";
 
 @Service()
 export default class AuthService {
+    constructor(
+        @InjectRepository() private readonly userRepository: UserReposityry
+    ) {}
+
     login(user: User): any {
         // TODO: Implement login
         console.log("Login:", user);
@@ -13,14 +19,19 @@ export default class AuthService {
         };
     }
 
-    register(user: User): IUser {
-        // TODO: Implement register
-        console.log("Register:", user);
-        const { nickname, email } = user;
-        return {
-            id: "12sda23dsavcx34324134xsf",
-            nickname,
-            email
-        };
+    async register(user: User): Promise<any> {
+        if (await this.userRepository.findByEmail(user.email)) {
+            const { status, message } = new BadRequestException(
+                "The email address is already subscribed. Please try to use another one or simply Log in"
+            );
+            return {
+                error: {
+                    status,
+                    message
+                }
+            };
+        }
+
+        return this.userRepository.save(user);
     }
 }

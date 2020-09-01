@@ -20,7 +20,8 @@ export class UserController {
 
     @Post("/register")
     @UseBefore(DataValidation(User))
-    register(@Body() user: any): IUser {
-        return this.authService.register(user);
+    async register(@Body() userData: User) {
+        const createdUser: IUser = await this.authService.register(userData);
+        return createdUser;
     }
 }
