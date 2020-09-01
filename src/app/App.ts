@@ -1,4 +1,3 @@
-import { ServerMessages } from "../config/constants";
 import express from "express";
 
 import {
@@ -8,6 +7,8 @@ import {
 
 import bodyParser from "body-parser";
 import cors from "cors";
+
+import { ServerMessages } from "../config/constants";
 
 export interface IApp {
     create(): void;

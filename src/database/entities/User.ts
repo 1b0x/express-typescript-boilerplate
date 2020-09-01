@@ -1,12 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { IsEmail, IsString, IsOptional, Length } from "class-validator";
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from "typeorm";
+import { IsEmail, IsString, IsOptional } from "class-validator";
+import { randomBytes, pbkdf2Sync } from "crypto";
 
 @Entity()
 export default class User {
     @PrimaryGeneratedColumn("uuid")
     id: string;
 
-    @Column("varchar", { length: 150 })
+    @Column({ type: "varchar", length: 150, unique: true })
     @IsString()
     nickname: string;
 
@@ -20,11 +21,25 @@ export default class User {
     @IsOptional()
     lastname?: string;
 
-    @Column("varchar", { length: 200 })
+    @Column({ type: "varchar", length: 200, unique: true })
     @IsEmail()
     email: string;
 
-    @IsString()
-    @Length(8)
+    @Column("varchar")
     password: string;
+
+    @Column("varchar")
+    salt: string;
+
+    @BeforeInsert()
+    async hashPassword() {
+        this.salt = randomBytes(16).toString("hex");
+        this.password = pbkdf2Sync(
+            this.password,
+            this.salt,
+            1000,
+            64,
+            `sha512`
+        ).toString(`hex`);
+    }
 }
