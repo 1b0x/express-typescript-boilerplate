@@ -12,9 +12,23 @@ export default class AuthService {
         @InjectRepository() private readonly userRepository: UserReposityry
     ) {}
 
-    login(user: User): any {
+    async login(user: User): Promise<any> {
         // TODO: Implement login
-        console.log("Login:", user);
+        const { email, password } = user;
+
+        const loggedUser = await this.userRepository.findByEmail(email);
+        if (!loggedUser) {
+            throw new BadRequestException(
+                AuthenticationMessages.INCORRECT_CREDENTIALS
+            );
+        }
+
+        if (!loggedUser.checkPasswordIsValid(password)) {
+            throw new BadRequestException(
+                AuthenticationMessages.INCORRECT_CREDENTIALS
+            );
+        }
+
         return {
             success: true
         };
