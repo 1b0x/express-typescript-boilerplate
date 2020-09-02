@@ -39,7 +39,7 @@ export default class User {
             this.salt,
             1000,
             64,
-            `sha512`
+            `sha256`
         ).toString(`hex`);
     }
 }
