@@ -39,7 +39,19 @@ export default class User {
             this.salt,
             1000,
             64,
-            `sha512`
+            `sha256`
         ).toString(`hex`);
+    }
+
+    public checkPasswordIsValid(password: string = ""): boolean {
+        const hash = pbkdf2Sync(
+            password,
+            this.salt,
+            1000,
+            64,
+            `sha256`
+        ).toString(`hex`);
+
+        return hash === this.password;
     }
 }

@@ -4,6 +4,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import User from "../database/entities/User";
 import UserReposityry from "../repositories/UserRepository";
 import BadRequestException from "../exceptions/BadRequestException";
+import { AuthenticationMessages } from "../config/constants";
 
 @Service()
 export default class AuthService {
@@ -11,9 +12,23 @@ export default class AuthService {
         @InjectRepository() private readonly userRepository: UserReposityry
     ) {}
 
-    login(user: User): any {
+    async login(user: User): Promise<any> {
         // TODO: Implement login
-        console.log("Login:", user);
+        const { email, password } = user;
+
+        const loggedUser = await this.userRepository.findByEmail(email);
+        if (!loggedUser) {
+            throw new BadRequestException(
+                AuthenticationMessages.INCORRECT_CREDENTIALS
+            );
+        }
+
+        if (!loggedUser.checkPasswordIsValid(password)) {
+            throw new BadRequestException(
+                AuthenticationMessages.INCORRECT_CREDENTIALS
+            );
+        }
+
         return {
             success: true
         };
@@ -21,15 +36,13 @@ export default class AuthService {
 
     async register(user: User): Promise<any> {
         if (await this.userRepository.findByEmail(user.email)) {
-            const { status, message } = new BadRequestException(
-                "The email address is already subscribed. Please try to use another one or simply Log in"
+            throw new BadRequestException(AuthenticationMessages.EMAIL_EIXSTS);
+        }
+
+        if (await this.userRepository.findByNickname(user.nickname)) {
+            throw new BadRequestException(
+                AuthenticationMessages.NICKNAME_EXISTS
             );
-            return {
-                error: {
-                    status,
-                    message
-                }
-            };
         }
 
         return this.userRepository.save(user);

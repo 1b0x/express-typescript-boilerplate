@@ -1,7 +1,5 @@
 import { JsonController, Post, Body, UseBefore } from "routing-controllers";
 
-import { IUser } from "../interfaces/User";
-
 import User from "../database/entities/User";
 import UserLogInDto from "../dto/UserLogInDto";
 
@@ -14,14 +12,27 @@ export class UserController {
 
     @Post("/login")
     @UseBefore(DataValidation(UserLogInDto))
-    login(@Body() user: any): any {
-        return this.authService.login(user);
+    async login(@Body() user: any) {
+        try {
+            return await this.authService.login(user);
+        } catch (error) {
+            return {
+                status: error.status,
+                message: error.message
+            };
+        }
     }
 
     @Post("/register")
     @UseBefore(DataValidation(User))
     async register(@Body() userData: User) {
-        const createdUser: IUser = await this.authService.register(userData);
-        return createdUser;
+        try {
+            return await this.authService.register(userData);
+        } catch (error) {
+            return {
+                status: error.status,
+                message: error.message
+            };
+        }
     }
 }
