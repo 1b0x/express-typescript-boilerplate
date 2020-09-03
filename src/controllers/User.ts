@@ -1,12 +1,17 @@
-import { JsonController, Get } from "routing-controllers";
-import UserService from "../services/UserService";
+import {
+    JsonController,
+    Get,
+    Authorized,
+    CurrentUser
+} from "routing-controllers";
 
 @JsonController("/users")
 export class UserController {
-    constructor(private userService: UserService) {}
+    constructor() {}
 
+    @Authorized()
     @Get("/me")
-    getUser() {
-        return this.userService.getUser();
+    getUser(@CurrentUser() user: any) {
+        return user;
     }
 }
