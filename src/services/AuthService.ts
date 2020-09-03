@@ -20,7 +20,11 @@ export default class AuthService {
     async login(user: User): Promise<any> {
         const { email, password } = user;
 
-        const loggedUser = await this.userRepository.findByEmail(email);
+        const loggedUser = await this.userRepository.findByEmail(email, [
+            "nickname",
+            "salt",
+            "password"
+        ]);
         if (!loggedUser) {
             throw new BadRequestException(
                 AuthenticationMessages.INCORRECT_CREDENTIALS

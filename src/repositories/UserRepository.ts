@@ -6,10 +6,10 @@ import User from "../database/entities/User";
 @Service()
 @EntityRepository(User)
 export default class UserReposityry extends Repository<User> {
-    findByEmail(email: string = "") {
+    findByEmail(email: string = "", select?: any[]) {
         return this.findOne({
             where: { email },
-            select: ["id", "firstname", "lastname", "nickname", "email"]
+            select
         });
     }
 
