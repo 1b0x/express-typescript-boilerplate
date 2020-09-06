@@ -13,26 +13,12 @@ export class UserController {
     @Post("/login")
     @UseBefore(DataValidation(UserLogInDto))
     async login(@Body() user: any) {
-        try {
-            return await this.authService.login(user);
-        } catch (error) {
-            return {
-                status: error.status,
-                message: error.message
-            };
-        }
+        return await this.authService.login(user);
     }
 
     @Post("/register")
     @UseBefore(DataValidation(User))
     async register(@Body() userData: User) {
-        try {
-            return await this.authService.register(userData);
-        } catch (error) {
-            return {
-                status: error.status,
-                message: error.message
-            };
-        }
+        return await this.authService.register(userData);
     }
 }

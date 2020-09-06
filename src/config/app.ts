@@ -7,6 +7,7 @@ export const RoutingControllersSettings: RoutingControllersOptions = {
     middlewares: [path.join(__dirname, "../middlewares/*.js")],
     routePrefix: "/api",
     validation: false,
+    defaultErrorHandler: false,
     authorizationChecker,
     currentUserChecker
 };
