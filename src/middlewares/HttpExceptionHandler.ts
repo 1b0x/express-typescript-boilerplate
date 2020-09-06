@@ -4,7 +4,7 @@ import { NextFunction, Request, Response } from "express";
 import NotFoundException from "../exceptions/NotFoundException";
 
 @Middleware({ type: "after" })
-export class CustomHttpExceptionHandler implements ExpressMiddlewareInterface {
+export class HttpExceptionHandler implements ExpressMiddlewareInterface {
     use(req: Request, res: Response, next?: NextFunction): void {
         if (!res.headersSent) {
             const { status, message } = new NotFoundException();
