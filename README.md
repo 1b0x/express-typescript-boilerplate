@@ -8,4 +8,4 @@
 
 
 ## Writing Code
-After cloning the repo, run npm install from your project directory. Then, you can start the local development server by running `yarn watch` and then `yarn dev`
+After cloning the repo, run `yarn install` from your project directory. Then, you can start the local development server by running `yarn watch` and then `yarn dev`
