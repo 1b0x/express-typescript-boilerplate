@@ -6,10 +6,12 @@ import jwt from "jsonwebtoken";
 import User from "../database/entities/User";
 import UserReposityry from "../repositories/UserRepository";
 
-import BadRequestException from "../exceptions/BadRequestException";
-import ServerErrorException from "../exceptions/ServerErrorException";
+import BadRequestException from "../exceptions/common/BadRequestException";
+import ServerErrorException from "../exceptions/common/ServerErrorException";
 
 import { AuthenticationMessages } from "../config/constants";
+import UserNicknameExistsException from "../exceptions/user/UserNicknameExistsException";
+import UserEmailExistsException from "../exceptions/user/UserEmailExistsException";
 
 @Service()
 export default class AuthService {
@@ -25,6 +27,7 @@ export default class AuthService {
             "salt",
             "password"
         ]);
+
         if (!loggedUser) {
             throw new BadRequestException(
                 AuthenticationMessages.INCORRECT_CREDENTIALS
@@ -51,13 +54,11 @@ export default class AuthService {
 
     async register(user: User): Promise<any> {
         if (await this.userRepository.findByEmail(user.email)) {
-            throw new BadRequestException(AuthenticationMessages.EMAIL_EIXSTS);
+            throw new UserEmailExistsException();
         }
 
         if (await this.userRepository.findByNickname(user.nickname)) {
-            throw new BadRequestException(
-                AuthenticationMessages.NICKNAME_EXISTS
-            );
+            throw new UserNicknameExistsException(user.nickname);
         }
 
         const createdUser = await this.userRepository.save(user);
