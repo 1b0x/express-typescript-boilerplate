@@ -5,7 +5,7 @@ import { ClassType } from "class-transformer/ClassTransformer";
 
 import { validate } from "class-validator";
 
-import BadRequestException from "../exceptions/BadRequestException";
+import BadRequestException from "../exceptions/common/BadRequestException";
 import { getClientErrorMessagesFromClassValidationErrors } from "../common/Helpers";
 
 export function DataValidation(classType: ClassType<any>) {

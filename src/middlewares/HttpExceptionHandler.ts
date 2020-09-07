@@ -1,7 +1,7 @@
 import { Middleware, ExpressMiddlewareInterface } from "routing-controllers";
 import { NextFunction, Request, Response } from "express";
 
-import NotFoundException from "../exceptions/NotFoundException";
+import NotFoundException from "../exceptions/common/NotFoundException";
 
 @Middleware({ type: "after" })
 export class HttpExceptionHandler implements ExpressMiddlewareInterface {

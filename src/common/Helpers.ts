@@ -5,6 +5,7 @@ import { Action } from "routing-controllers";
 import { getCustomRepository } from "typeorm";
 
 import UserReposityry from "../repositories/UserRepository";
+import AuthTokenMissingException from "../exceptions/auth/AuthTokenMissingException";
 
 export function getClientErrorMessagesFromClassValidationErrors(
     errors: ValidationError[]
@@ -29,14 +30,14 @@ export async function authorizationChecker(action: Action): Promise<any> {
     const authorization = action.request.headers["authorization"];
     const token = authorization && authorization.split(" ")[1];
 
-    if (!token) return false;
+    if (!token) throw new AuthTokenMissingException();
 
     return await jwt.verify(
         token,
         process.env.TOKEN_SECRET as string,
         (err: any, user: any) => {
             if (err || !user) {
-                return false;
+                throw new AuthTokenMissingException();
             }
 
             return true;
