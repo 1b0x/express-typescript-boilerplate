@@ -1,5 +1,6 @@
 export const DatabaseExceptionConstants = {
-    CONNECTION_ERROR: "Database connection error"
+    CONNECTION_ERROR:
+        "Database connection error. Please check the console logs!"
 };
 
 export const ServerMessages = {
@@ -7,8 +8,5 @@ export const ServerMessages = {
 };
 
 export const AuthenticationMessages = {
-    EMAIL_EIXSTS:
-        "The email address is already subscribed. Please try to use another one or simply Log in",
-    NICKNAME_EXISTS: "A user with this nickname already exists",
     INCORRECT_CREDENTIALS: "The credentials you supplied were not correct"
 };
